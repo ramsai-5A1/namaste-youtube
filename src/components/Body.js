@@ -3,7 +3,7 @@ import SideBar from "./SideBar";
 
 const Body = () => {
     return (
-        <div className="bg-blue-100 flex">
+        <div className=" flex">
             <SideBar/>
             <MainContainer/>
         </div>
