@@ -4,7 +4,7 @@ import Head from './components/Head';
 
 const App = () => {
   return (
-    <div className="bg-gray-400">
+    <div className="">
       <Head/>
       <Body/>
     </div>
