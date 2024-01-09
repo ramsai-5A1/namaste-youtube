@@ -1,17 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const HeaderSlice = createSlice({
-    name: "Header",
+    name: "HeaderMenu",
     initialState: {
-        menuClicked: true
+        isMenuOpened: true
     },
     reducers: {
-        toggleMenuButton: (state) => {
-            state.menuClicked = !state.menuClicked;
+        onTogglingMenu: (state, action) => {
+            state.isMenuOpened = !state.isMenuOpened;
         }
     }
 });
 
-export const { toggleMenuButton } = HeaderSlice.actions;
-
+export const { onTogglingMenu } = HeaderSlice.actions;
 export default HeaderSlice.reducer;

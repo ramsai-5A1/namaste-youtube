@@ -4,7 +4,7 @@ import SideBar from "./SideBar";
 
 const Body = () => {
 
-    const isOpened = useSelector((store) => store.header.menuClicked);
+    const isOpened = useSelector((store) => store.header.isMenuOpened);
 
     return (
         <div className="flex z-9 py-20">
