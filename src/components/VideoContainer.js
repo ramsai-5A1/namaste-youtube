@@ -2,7 +2,7 @@ import MOCK_DATA from "../utils/videoContent.json";
 
 const VideoContainer = () => {
     return (
-        <div className="flex flex-wrap w-10/12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                 <VideoCard dataObj = {MOCK_DATA["videos"][0]}/>
                 {MOCK_DATA["videos"].map((video) => <VideoCard dataObj={video}/>)}
         </div>

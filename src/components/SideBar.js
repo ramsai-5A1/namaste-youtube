@@ -15,7 +15,8 @@ import { IoMdMusicalNotes } from "react-icons/io";
 
 const SideBar = () => {
     return (
-        <div className=" w-2/12">
+        <div className="w-2/12 overflow-y-auto h-screen">
+        <div className="py-2 m-2">
             <div className="flex justify-normal hover:cursor-pointer hover:bg-gray-200 hover:rounded-3xl">
                 <ImHome className="px-2 h-[60px] w-10"/>
                 <span className="p-4">Home</span>
@@ -29,6 +30,16 @@ const SideBar = () => {
             <div className="flex justify-normal hover:cursor-pointer hover:bg-gray-200 hover:rounded-3xl">
                 <MdSubscriptions className="px-2 h-[60px] w-10"/>
                 <span className="p-4">Subscriptions</span>
+            </div>
+
+            <div className="flex justify-normal hover:cursor-pointer hover:bg-gray-200 hover:rounded-3xl">
+                <FaHistory className="px-2 h-[60px] w-10"/>
+                <span className="p-4">History</span>
+            </div>
+
+            <div className="flex justify-normal hover:cursor-pointer hover:bg-gray-200 hover:rounded-3xl">
+                <LiaFileVideoSolid className="px-2 h-[60px] w-10"/>
+                <span className="p-4">Your videos</span>
             </div>
 
             <div className="m-2 border border-gray-400">
@@ -167,6 +178,7 @@ const SideBar = () => {
                 <span className="p-2">© 2024 Google LLC</span>
             </div>
             
+            </div>
         </div>
     )
 };

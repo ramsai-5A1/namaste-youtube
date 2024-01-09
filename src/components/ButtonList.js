@@ -2,7 +2,7 @@ import { bodyButtonsList } from "../utils/constants";
 
 const ButtonList = () => {
     return (
-        <div className="flex">
+        <div className="flex w-screen overflow-x-auto m-2 p-2 border">
             {bodyButtonsList.map((element) => <RenderButton name={element}/>)}
             <RenderButton name={"All"}/>
         </div>

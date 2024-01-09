@@ -1,9 +1,15 @@
+import { useDispatch } from "react-redux";
+import {toggleMenuButton} from "../utils/HeaderSlice";
 
 const Head = () => {
+
+    const dispatch = useDispatch();
+
     return (
-        <div className="grid grid-flow-col shadow-lg">
+        <div className="grid grid-flow-col shadow-lg z-10 fixed bg-white w-full border">
             <div className="flex items-center h-20 col-span-1">
                 <img 
+                    onClick={() => dispatch(toggleMenuButton())}
                     alt="menu"
                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMwAAADACAMAAAB/Pny7AAAASFBMVEX///90d3lucXORlJX39/elp6hqbnCcnZ+pqqtxdHb6+vvT1NTY2dl/goSfoaKHiozj5OS5u7zu7u5dYGPCw8RkZ2l6fH+xsrNaT7p/AAACRUlEQVR4nO3c65KjIBSFUS8RJOAliZj3f9OxnanKHzR2d03JOfnWE7hLMQE2FgUAAAAAAAAAAPgg10v2rseSXEZ/a5s2a0178+PlfRTflNEIEMvGv4kzNs64UoTlQptxL4sfpET54szgt7OEuTr7Ar+nmsNWlru0LF9p7uks19qcfW3fZ+r0Szo8zr6yn3ikH7RO0Nh/cV1yxIi8McutSY2aKZ59WT8Tp0SYXtyr7K+qT4QZpIYZUuNfapjUG0DVnVE1ZlS9zS5Sf2eSsxqZb4Dk+F/+m4l8zuLGJMBK/Nds01mKsROXxnSbM2cvLY3pdubNfhCVZncNYHnS+igmjon97urMMncO9SOaKnsmPupwYFnz6p+2zpx9+oMLtAAAAAAAAAAA/JKehXNNWxqaNps0bQNq2qBVtXWuqdTgZdZN0g+apiKQqoqWqvKcqlqjqsKpzPFPFThf+qvAqo6cqDoMpOuYlqoDdKqONuo6dKrrOLCug9q6jtAX/z5ukL1DHzdY6fnsBAAAAAAAAADgHOPU2uy105vtjFWo59kJMM/1zq7Z6m6Nk7LZ5Izd3NBcb4sTteFs3M7NCU7aBu12mlFeS6varAL3AqtAMdVpKpR9eU5mey7ZndNV0VJVnutF/cS8GKrAmfqAKrCmMaPqbabqyAlV4PN9RBV4lFLPfHFmc10jSEvjzN68ea4ExXG7teblSbOllDiuKu27KvBkh+rsmu8R1WCnA1XgcHu2Teba5+3IB45X2XeBaQIDAAAAAADgv/oDnW51n3eXUngAAAAASUVORK5CYII="
                     className="w-18 h-14 p-2 hover:cursor-pointer"
