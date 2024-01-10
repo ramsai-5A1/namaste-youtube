@@ -7,6 +7,7 @@ import AppDataStore from './utils/AppDataStore';
 import { Route, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import MainContainer from './components/MainContainer';
 import WatchPage from './components/WatchPage';
+import AdminPage from './components/AdminPage';
 
 const appRouter = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const appRouter = createBrowserRouter([
         element: <WatchPage/>
       }
     ]
+  },
+  {
+    path: "/admin",
+    element: <AdminPage/>
   }
 ]);
 
