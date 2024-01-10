@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BACKEND_DATA_API } from "../utils/constants";
 import Shimmer from "./Shimmer";
+import React from "react";
 
 const VideoContainer = () => {
     const [videosData, setVideosData] = useState([]);
@@ -22,7 +23,7 @@ const VideoContainer = () => {
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-                {videosData.map((video, index) => <VideoCard key={index} dataObj={video}/>)}
+                {videosData.map((video) => <VideoCard key={video.id} dataObj={video}/>)}
         </div>
     )
 };
@@ -31,7 +32,7 @@ const VideoCard = ({dataObj}) => {
     const {thumbnailUrl, views, title, author, uploadTime} = dataObj;
 
     return (
-        <div className="p-2 m-2 hover:transition hover:cursor-pointer hover:scale-110 transition-transform">
+        <div  className="shadow-lg p-2 m-2 hover:transition hover:cursor-pointer hover:scale-110 transition-transform">
             <div>
                 <img 
                     src={thumbnailUrl}
