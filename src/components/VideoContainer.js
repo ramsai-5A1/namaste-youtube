@@ -1,45 +1,59 @@
-import MOCK_DATA from "../utils/videoContent.json";
+import { useEffect, useState } from "react";
+import { BACKEND_DATA_API } from "../utils/constants";
+import Shimmer from "./Shimmer";
 
 const VideoContainer = () => {
+    const [videosData, setVideosData] = useState([]);
+
+    useEffect(() => {
+        const fetchDataFromApi = async () => {
+             const rawData = await fetch(BACKEND_DATA_API);
+             const data = await rawData.json();
+             setTimeout(() => {
+                setVideosData(data.data);
+             }, 2000); 
+        }
+        fetchDataFromApi();
+    }, []);
+
+    if (videosData === undefined || videosData.length === 0) {
+        return <Shimmer/>
+    }
+
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-                <VideoCard dataObj = {MOCK_DATA["videos"][0]}/>
-                {MOCK_DATA["videos"].map((video) => <VideoCard dataObj={video}/>)}
+                {videosData.map((video, index) => <VideoCard key={index} dataObj={video}/>)}
         </div>
     )
 };
 
 const VideoCard = ({dataObj}) => {
-    const {imageUrl, name, releasedOn, views, channelProfile} = dataObj;
+    const {thumbnailUrl, views, title, author, uploadTime} = dataObj;
 
     return (
         <div className="p-2 m-2 hover:transition hover:cursor-pointer hover:scale-110 transition-transform">
             <div>
                 <img 
-                    src={imageUrl}
+                    src={thumbnailUrl}
                     className=" w-[300px] h-[200px] rounded-lg"
                 />
             </div>
 
             <div className="flex">
                 <img
-                    src={channelProfile}
-                    className="rounded-full h-10 m-1"
+                    src={thumbnailUrl}
+                    className="rounded-full w-10 h-10 m-1"
                 />
                 <div>
-                    <span className="py-2 px-1 font-bold">{name}</span>
+                    <span className="py-2 px-1 font-bold">{title}</span>
+                    <span>{author}</span>
                     <div>
                         <span>{views} views</span>
-                        <span className="px-2">{releasedOn}</span>
+                        <span className="px-2">{uploadTime}</span>
                     </div>
                 </div>
                
             </div>
-            
-            {/* <div className="">
-                <span>{views} views</span>
-                <span className="px-2">{releasedOn}</span>
-            </div> */}
         </div>
     )
 }
