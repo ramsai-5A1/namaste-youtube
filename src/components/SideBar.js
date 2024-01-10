@@ -10,6 +10,7 @@ import { MdOutlineStorage } from "react-icons/md";
 import { BiSolidLike } from "react-icons/bi";
 import { FaFire } from "react-icons/fa";
 import { IoMdMusicalNotes } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 
 
@@ -17,10 +18,12 @@ const SideBar = () => {
     return (
         <div className="w-2/12 overflow-y-auto h-screen">
         <div className="py-2 m-2">
-            <div className="flex justify-normal hover:cursor-pointer hover:bg-gray-200 hover:rounded-3xl">
-                <ImHome className="px-2 h-[60px] w-10"/>
-                <span className="p-4">Home</span>
-            </div>
+            <Link to="/">
+                <div className="flex justify-normal hover:cursor-pointer hover:bg-gray-200 hover:rounded-3xl">
+                    <ImHome className="px-2 h-[60px] w-10"/>
+                    <span className="p-4">Home</span>
+                </div>
+            </Link>
 
             <div className="flex justify-normal hover:cursor-pointer hover:bg-gray-200 hover:rounded-3xl">
                 <SiYoutubeshorts className="px-2 h-[60px] w-10"/>

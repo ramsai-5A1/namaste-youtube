@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { BACKEND_DATA_API } from "../utils/constants";
 import Shimmer from "./Shimmer";
 import React from "react";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addVideoInfo } from "../utils/VideoSlice";
 
 const VideoContainer = () => {
     const [videosData, setVideosData] = useState([]);
@@ -23,16 +26,25 @@ const VideoContainer = () => {
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-                {videosData.map((video) => <VideoCard key={video.id} dataObj={video}/>)}
+                {videosData.map((video) => (
+                    <Link to="/watch">
+                        <VideoCard key={video.id} dataObj={video}/> 
+                    </Link>
+                ))}
         </div>
     )
 };
 
 const VideoCard = ({dataObj}) => {
     const {thumbnailUrl, views, title, author, uploadTime} = dataObj;
+    const dispatch = useDispatch();
+
+    const insertDataIntoSlice = () => {
+        dispatch(addVideoInfo(dataObj));
+    }
 
     return (
-        <div  className="shadow-lg p-2 m-2 hover:transition hover:cursor-pointer hover:scale-110 transition-transform">
+        <div onClick={insertDataIntoSlice}  className="shadow-lg p-2 m-2 hover:transition hover:cursor-pointer hover:scale-110 transition-transform">
             <div>
                 <img 
                     src={thumbnailUrl}
