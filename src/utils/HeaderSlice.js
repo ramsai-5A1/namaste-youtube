@@ -9,11 +9,11 @@ const HeaderSlice = createSlice({
         onTogglingMenu: (state, action) => {
             state.isMenuOpened = !state.isMenuOpened;
         },
-        toggleMenuWithThis: (state, action) => {
-            state.isMenuOpened = action.payload;
+        closeMenu: (state) => {
+            state.isMenuOpened = false;
         }
     }
 });
 
-export const { onTogglingMenu, toggleMenuWithThis } = HeaderSlice.actions;
+export const { onTogglingMenu, closeMenu } = HeaderSlice.actions;
 export default HeaderSlice.reducer;

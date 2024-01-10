@@ -1,12 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const VideoSlice = createSlice({
     name: "Video",
     initialState: {
-        info: {}
+        info: {},
+        allVideos: []
     },
     reducers: {
+        addAllVideos: (state, action) => {
+            action.payload.map((video) => state.allVideos.push(video));
+        },
         addVideoInfo: (state, action) => {
             state.info = action.payload;
         },
@@ -16,5 +19,5 @@ const VideoSlice = createSlice({
     }
 });
 
-export const { addVideoInfo, deleteVideoInfo } = VideoSlice.actions;
+export const { addAllVideos, addVideoInfo, deleteVideoInfo } = VideoSlice.actions;
 export default VideoSlice.reducer;

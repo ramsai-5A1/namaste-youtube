@@ -4,15 +4,17 @@ import Shimmer from "./Shimmer";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addVideoInfo } from "../utils/VideoSlice";
+import { addAllVideos, addVideoInfo } from "../utils/VideoSlice";
 
 const VideoContainer = () => {
     const [videosData, setVideosData] = useState([]);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const fetchDataFromApi = async () => {
              const rawData = await fetch(BACKEND_DATA_API);
              const data = await rawData.json();
+             dispatch(addAllVideos(data.data));
              setTimeout(() => {
                 setVideosData(data.data);
              }, 2000); 
