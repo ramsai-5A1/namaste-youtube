@@ -8,6 +8,7 @@ import { Route, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import MainContainer from './components/MainContainer';
 import WatchPage from './components/WatchPage';
 import AdminPage from './components/AdminPage';
+import Payment, { DefaultComponent, PreviousPayments, Profile } from './components/Payment';
 
 const appRouter = createBrowserRouter([
   {
@@ -26,7 +27,27 @@ const appRouter = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <AdminPage/>
+    element: <AdminPage/>,
+    children: [
+      {
+        path: "/admin/payment",
+        element: <Payment/>,
+        children: [
+          {
+            path: "/admin/payment",
+            element: <DefaultComponent/>
+          },
+          {
+            path: "/admin/payment/previous",
+            element: <PreviousPayments/>
+          }
+        ]
+      },
+      {
+        path: "/admin/profile",
+        element: <Profile/>
+      }
+    ]
   }
 ]);
 
