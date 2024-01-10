@@ -1,12 +1,15 @@
 import { Outlet } from "react-router-dom";
 import SideBar from "./SideBar";
+import { useSelector } from "react-redux";
 
 const AdminPage = () => {
-    console.log("AdminPage rendered");
+    const isMenuOpened = useSelector((store) => store.header.isMenuOpened);
+
     return (
-        <div className="bg-green-200 py-[100px]">
+        <div className="py-[100px]">
             <h1>AdminPage</h1>
             <h2>Below is outlet component</h2>
+            {isMenuOpened && <SideBar/>}
             <Outlet/>
         </div>
     )
