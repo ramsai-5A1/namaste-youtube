@@ -5,6 +5,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addAllVideos, addVideoInfo } from "../utils/VideoSlice";
+import { MOCK_DATA_1 } from "../utils/Mocks/MOCK_DATA_1";
 
 const VideoContainer = () => {
     const [videosData, setVideosData] = useState([]);
@@ -12,11 +13,12 @@ const VideoContainer = () => {
 
     useEffect(() => {
         const fetchDataFromApi = async () => {
-             const rawData = await fetch(BACKEND_DATA_API);
-             const data = await rawData.json();
-             dispatch(addAllVideos(data.data));
+            //  const rawData = await fetch(BACKEND_DATA_API);
+            //  const data = await rawData.json();
+             const data = MOCK_DATA_1;
+             dispatch(addAllVideos(data));
              setTimeout(() => {
-                setVideosData(data.data);
+                setVideosData(data);
              }, 2000); 
         }
         fetchDataFromApi();
