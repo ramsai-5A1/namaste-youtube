@@ -83,8 +83,8 @@ const Head = () => {
                             onChange={handleSearchBar}
                             type="text"
                             value={searchedText}
-                            onFocus={() => setSelected(false)}
-                            onBlur={() => setSelected(true)}
+                            // onFocus={() => setSelected(false)}
+                            // onBlur={() => setSelected(true)}
                             placeholder="Search"
                             className="border border-gray-400  h-12 p-2 w-1/2 rounded-l-full "
                         />
