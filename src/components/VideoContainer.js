@@ -30,17 +30,26 @@ const VideoContainer = () => {
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                
                 {videosData.map((video) => (
                     <Link to="/watch">
-                        <VideoCard key={video.id} dataObj={video}/> 
+                        {video.isAdd ? <AdVideoCard key={video.id} dataObj={video}/> : <VideoCard key={video.id} dataObj={video}/> }
                     </Link>
                 ))}
         </div>
     )
 };
 
+const AdVideoCard = ({dataObj}) => {
+    return (
+        <div className="border border-red-600 rounded-lg">
+            <VideoCard dataObj={dataObj}/>
+        </div>
+    )
+};
+
 const VideoCard = ({dataObj}) => {
-    const {thumbnailUrl, views, title, author, uploadTime} = dataObj;
+    const {thumbnailUrl, views, title, author, uploadTime, isAdd} = dataObj;
     const dispatch = useDispatch();
 
     const insertDataIntoSlice = () => {

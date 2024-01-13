@@ -23,7 +23,8 @@ export const MOCK_DATA_1 = [
         "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
         "description": "Song : Raja Raja Kareja Mein Samaja\nAlbum : Raja Kareja Mein Samaja\nArtist : Radhe Shyam Rasia\nSinger : Radhe Shyam Rasia\nMusic Director : Sohan Lal, Dinesh Kumar\nLyricist : Vinay Bihari, Shailesh Sagar, Parmeshwar Premi\nMusic Label : T-Series",
         "subscriber": "25254545 Subscribers",
-        "isLive": true
+        "isLive": true,
+        "isAdd": true
     },
     {
         "id": "3",
@@ -75,7 +76,8 @@ export const MOCK_DATA_1 = [
         "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
         "description": "Song : Raja Raja Kareja Mein Samaja\nAlbum : Raja Kareja Mein Samaja\nArtist : Radhe Shyam Rasia\nSinger : Radhe Shyam Rasia\nMusic Director : Sohan Lal, Dinesh Kumar\nLyricist : Vinay Bihari, Shailesh Sagar, Parmeshwar Premi\nMusic Label : T-Series",
         "subscriber": "25254545 Subscribers",
-        "isLive": false
+        "isLive": false,
+        "isAdd": true
     },
     {
         "id": "7",
