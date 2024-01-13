@@ -1,8 +1,9 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {onTogglingMenu} from "../utils/HeaderSlice";
 import { useEffect, useState } from "react";
 import { GOOGLE_SEARCH_API } from "../utils/constants";
 import convert from 'xml-js';
+import { addItemToCache } from "../utils/CacheSlice";
 
 
 const Head = () => {
@@ -21,6 +22,7 @@ const Head = () => {
         }
     }, [searchedText]);
 
+    const reddis = useSelector((store) => store.cache.reddis);
     const dispatch = useDispatch();
 
     const insertNewSearchOptions = async () => {
@@ -29,6 +31,12 @@ const Head = () => {
             if (searchedText === undefined || searchedText.length === 0) {
                 return;
             }
+            if (searchedText in reddis) {
+                setSearchOptions(reddis[searchedText]);
+                console.log("Retrived from cache");
+                return;
+            }
+
             const rawData = await fetch(GOOGLE_SEARCH_API + searchedText);
             const xmlText = await rawData.text();
             const jsonResult = convert.xml2json(xmlText, { compact: true, spaces: 2 });
@@ -47,7 +55,8 @@ const Head = () => {
                 
             }
             setSearchOptions(arr);
-            
+            console.log("Retrived from API");
+            dispatch(addItemToCache([searchedText, arr]));
         } catch (e) {
             console.error(e);
         }
