@@ -1,4 +1,4 @@
-export const bodyButtonsList = ["All", "Music", "Trailers", "News", "Live", "T-Series", "Gaming", "Indian Pop Music", "Music", "Trailers", "News", "Live", "T-Series", "Gaming", "Indian Pop Music", "All", "Music", "Trailers", "News", "Live", "T-Series", "Gaming", "Indian Pop Music", "Music", "Trailers", "News", "Live", "T-Series", "Gaming", "Indian Pop Music"];
+export const bodyButtonsList = ["All", "Music", "Trailers", "News", "Live", "T-Series", "Gaming", "Pop", "Music", "Trailers", "News", "Live", "T-Series", "Gaming", " Pop ", "All", "Music", "Trailers", "News", "Live", "T-Series", "Gaming", " Pop ", "Music", "Trailers", "News", "Live", "T-Series", "Gaming", " Pop "];
 
 const GOOGLE_API_KEY = "AIzaSyDP_jInyFsvKghOzuN1E_bV0mwRvrj0ABw";
 export const GOOGLE_YOUTUBE_API = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&regionCode=US&key=" + GOOGLE_API_KEY;
