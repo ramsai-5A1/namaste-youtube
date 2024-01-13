@@ -83,6 +83,8 @@ const Head = () => {
                             onChange={handleSearchBar}
                             type="text"
                             value={searchedText}
+                            onFocus={() => setSelected(false)}
+                            onBlur={() => setSelected(true)}
                             placeholder="Search"
                             className="border border-gray-400  h-12 p-2 w-1/2 rounded-l-full "
                         />
@@ -131,7 +133,7 @@ const SuggestionsBox = ({searchOptions, setSearchedText, setSelected}) => {
         <div className="z-20">
             <div className="w-[470px] border h-auto bg-white rounded-lg p-2 shadow-lg">
                 <ul>
-                {searchOptions.map((value, index) => <li key={index} onClick={() => selectOptionFromDropDown(value)} className="p-1 hover:cursor-pointer hover:bg-gray-400">🔍 {value}</li>)}
+                {searchOptions.map((value, index) => <li key={index} onClick={() => selectOptionFromDropDown(value)} className="p-1 m-1 hover:cursor-pointer hover:bg-gray-400">🔍 {value}</li>)}
                 </ul>
             </div>
         </div>
