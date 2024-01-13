@@ -24,7 +24,6 @@ const Head = () => {
                 arr.push(obj.suggestion["_attributes"].data);
             });
             setSearchOptions(arr);
-            console.log(arr);
         } catch (e) {
             console.error(e);
         }
@@ -48,18 +47,21 @@ const Head = () => {
             </div>
 
             <div className="p-4 col-span-10 flex flex-col">
-                <div>
-                    <input 
-                        onChange={handleSearchBar}
-                        type="text"
-                        placeholder="Search"
-                        className="border border-gray-400  h-12 p-2 w-1/2 rounded-l-full "
-                    />
-                    <button className="h-12 p-2 border w-16 bg-gray-400 rounded-r-full">🔍</button>
+                <div className="">
+                    <div>
+                        
+                        <input 
+                            onChange={handleSearchBar}
+                            type="text"
+                            value={searchedText}
+                            placeholder="Search"
+                            className="border border-gray-400  h-12 p-2 w-1/2 rounded-l-full "
+                        />
+                        {searchedText.length > 0 && <span onClick={() => setSearchedText("")} className="z-6 hover:cursor-pointer ">⤫</span>}
+                        <button className="h-12 p-2 border w-16 bg-gray-400 rounded-r-full">🔍</button>
+                    </div>
                     { searchedText.length > 0 && <SuggestionsBox searchOptions={searchOptions}/> }            
                 </div>
-                
-                
             </div>
 
             
@@ -94,7 +96,7 @@ const SuggestionsBox = ({searchOptions}) => {
         <div className="z-20">
             <div className="w-[470px] h-auto bg-gray-300 rounded-lg p-2">
                 <ul>
-                {searchOptions.map((value) => <li className="hover:cursor-pointer hover:bg-gray-400">{value}</li>)}
+                {searchOptions.map((value) => <li className="p-1 hover:cursor-pointer hover:bg-gray-400">{value}</li>)}
                 </ul>
             </div>
         </div>
