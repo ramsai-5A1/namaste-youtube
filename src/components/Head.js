@@ -17,15 +17,28 @@ const Head = () => {
         setSearchedText(e.target.value);
         setSelected(false);
         try {
+            if (searchedText === undefined || searchedText.length === 0) {
+                return;
+            }
             const rawData = await fetch(GOOGLE_SEARCH_API + searchedText);
             const xmlText = await rawData.text();
             const jsonResult = convert.xml2json(xmlText, { compact: true, spaces: 2 });
             const jsonObject = JSON.parse(jsonResult);
             let arr = [];
-            jsonObject.toplevel.CompleteSuggestion.map((obj) => {
-                arr.push(obj.suggestion["_attributes"].data);
-            });
+            if (jsonObject?.toplevel?.CompleteSuggestion !== undefined) {
+                if (Array.isArray(jsonObject.toplevel.CompleteSuggestion)) {
+                    jsonObject.toplevel.CompleteSuggestion.map((obj) => {
+                        if (obj?.suggestion["_attributes"]?.data) {
+                            arr.push(obj.suggestion["_attributes"].data);
+                        }
+                    });
+                } else {
+                    arr.push(jsonObject.toplevel.CompleteSuggestion.suggestion["_attributes"].data);
+                }
+                
+            }
             setSearchOptions(arr);
+            
         } catch (e) {
             console.error(e);
         }
@@ -104,7 +117,7 @@ const SuggestionsBox = ({searchOptions, setSearchedText, setSelected}) => {
         <div className="z-20">
             <div className="w-[470px] h-auto bg-gray-300 rounded-lg p-2">
                 <ul>
-                {searchOptions.map((value) => <li onClick={() => selectOptionFromDropDown(value)} className="p-1 hover:cursor-pointer hover:bg-gray-400">{value}</li>)}
+                {searchOptions.map((value, index) => <li key={index} onClick={() => selectOptionFromDropDown(value)} className="p-1 hover:cursor-pointer hover:bg-gray-400">{value}</li>)}
                 </ul>
             </div>
         </div>
