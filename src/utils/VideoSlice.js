@@ -8,6 +8,7 @@ const VideoSlice = createSlice({
     },
     reducers: {
         addAllVideos: (state, action) => {
+            state.allVideos.length = 0;
             action.payload.map((video) => state.allVideos.push(video));
         },
         addVideoInfo: (state, action) => {

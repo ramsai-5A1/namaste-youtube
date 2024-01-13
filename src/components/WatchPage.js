@@ -19,10 +19,10 @@ const WatchPage = () => {
 
     return (
         <div className="flex">
-            <BigVideoCard info={info}/>
+            <BigVideoCard key={info.id} info={info}/>
             <div className="flex flex-col">
                 {allVideos.map((video) => (
-                    <RightSideVideoCard video={video}/>
+                    <RightSideVideoCard key={video.id + 100} video={video}/>
                 ))}
             </div>
             
