@@ -1,8 +1,7 @@
 import { useDispatch } from "react-redux";
 import {onTogglingMenu} from "../utils/HeaderSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GOOGLE_SEARCH_API } from "../utils/constants";
-//const convert = require('xml-js');
 import convert from 'xml-js';
 
 
@@ -10,10 +9,13 @@ const Head = () => {
 
     const [searchOptions, setSearchOptions] = useState([]);
     const [searchedText, setSearchedText] = useState("");
+    const [selected, setSelected] = useState(false);
+
     const dispatch = useDispatch();
 
     const handleSearchBar = async (e) => {
         setSearchedText(e.target.value);
+        setSelected(false);
         try {
             const rawData = await fetch(GOOGLE_SEARCH_API + searchedText);
             const xmlText = await rawData.text();
@@ -60,7 +62,7 @@ const Head = () => {
                         {searchedText.length > 0 && <span onClick={() => setSearchedText("")} className="z-6 hover:cursor-pointer ">⤫</span>}
                         <button className="h-12 p-2 border w-16 bg-gray-400 rounded-r-full">🔍</button>
                     </div>
-                    { searchedText.length > 0 && <SuggestionsBox searchOptions={searchOptions}/> }            
+                    { searchedText.length > 0 && !selected && <SuggestionsBox searchOptions={searchOptions} setSearchedText={setSearchedText} setSelected={setSelected}/> }            
                 </div>
             </div>
 
@@ -91,12 +93,18 @@ const Head = () => {
     )
 };
 
-const SuggestionsBox = ({searchOptions}) => {
+const SuggestionsBox = ({searchOptions, setSearchedText, setSelected}) => {
+
+    const selectOptionFromDropDown = (value) => {
+        setSelected(true);
+        setSearchedText(value);
+    }
+
     return (
         <div className="z-20">
             <div className="w-[470px] h-auto bg-gray-300 rounded-lg p-2">
                 <ul>
-                {searchOptions.map((value) => <li className="p-1 hover:cursor-pointer hover:bg-gray-400">{value}</li>)}
+                {searchOptions.map((value) => <li onClick={() => selectOptionFromDropDown(value)} className="p-1 hover:cursor-pointer hover:bg-gray-400">{value}</li>)}
                 </ul>
             </div>
         </div>
