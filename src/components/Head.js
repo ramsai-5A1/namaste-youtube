@@ -129,9 +129,9 @@ const SuggestionsBox = ({searchOptions, setSearchedText, setSelected}) => {
 
     return (
         <div className="z-20">
-            <div className="w-[470px] h-auto bg-white rounded-lg p-2">
+            <div className="w-[470px] border h-auto bg-white rounded-lg p-2 shadow-lg">
                 <ul>
-                {searchOptions.map((value, index) => <li key={index} onClick={() => selectOptionFromDropDown(value)} className="p-1 hover:cursor-pointer hover:bg-gray-400">{value}</li>)}
+                {searchOptions.map((value, index) => <li key={index} onClick={() => selectOptionFromDropDown(value)} className="p-1 hover:cursor-pointer hover:bg-gray-400">🔍 {value}</li>)}
                 </ul>
             </div>
         </div>
