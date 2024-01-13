@@ -1,12 +1,37 @@
 import { useDispatch } from "react-redux";
 import {onTogglingMenu} from "../utils/HeaderSlice";
+import { useState } from "react";
+import { GOOGLE_SEARCH_API } from "../utils/constants";
+//const convert = require('xml-js');
+import convert from 'xml-js';
+
 
 const Head = () => {
 
+    const [searchOptions, setSearchOptions] = useState([]);
+    const [searchedText, setSearchedText] = useState("");
     const dispatch = useDispatch();
 
+    const handleSearchBar = async (e) => {
+        setSearchedText(e.target.value);
+        try {
+            const rawData = await fetch(GOOGLE_SEARCH_API + searchedText);
+            const xmlText = await rawData.text();
+            const jsonResult = convert.xml2json(xmlText, { compact: true, spaces: 2 });
+            const jsonObject = JSON.parse(jsonResult);
+            let arr = [];
+            jsonObject.toplevel.CompleteSuggestion.map((obj) => {
+                arr.push(obj.suggestion["_attributes"].data);
+            });
+            setSearchOptions(arr);
+            console.log(arr);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     return (
-        <div className="grid grid-flow-col shadow-lg z-10 fixed bg-white w-full border">
+        <div className="grid grid-flow-col shadow-lg z-5 fixed bg-white w-full border h-[80px]">
             <div className="flex items-center h-20 col-span-1">
                 <img 
                     onClick={() => dispatch(onTogglingMenu())}
@@ -22,22 +47,22 @@ const Head = () => {
                 />
             </div>
 
-            <div className="p-4 col-span-10">
-                <input 
-                    type="text"
-                    placeholder="Search"
-                    className="border border-gray-400  h-12 p-2 w-1/2 rounded-l-full "
-                />
-
-                <button className="h-12 p-2 border w-16 bg-gray-400 rounded-r-full">🔍</button>
-
-                {/* <img
-                    alt="microphone-icon"
-                    src="data:image/png;base64,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"
-                    className="h-14 p-2 hover:cursor-pointer"
-                /> */}
+            <div className="p-4 col-span-10 flex flex-col">
+                <div>
+                    <input 
+                        onChange={handleSearchBar}
+                        type="text"
+                        placeholder="Search"
+                        className="border border-gray-400  h-12 p-2 w-1/2 rounded-l-full "
+                    />
+                    <button className="h-12 p-2 border w-16 bg-gray-400 rounded-r-full">🔍</button>
+                    { searchedText.length > 0 && <SuggestionsBox searchOptions={searchOptions}/> }            
+                </div>
+                
+                
             </div>
 
+            
             
             
             <div className="flex justify-between col-span-1">
@@ -63,5 +88,17 @@ const Head = () => {
         </div>
     )
 };
+
+const SuggestionsBox = ({searchOptions}) => {
+    return (
+        <div className="z-20">
+            <div className="w-[470px] h-auto bg-gray-300 rounded-lg p-2">
+                <ul>
+                {searchOptions.map((value) => <li className="hover:cursor-pointer hover:bg-gray-400">{value}</li>)}
+                </ul>
+            </div>
+        </div>
+    )
+}
 
 export default Head;
