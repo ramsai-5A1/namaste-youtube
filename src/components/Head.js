@@ -11,11 +11,20 @@ const Head = () => {
     const [searchedText, setSearchedText] = useState("");
     const [selected, setSelected] = useState(false);
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            insertNewSearchOptions();
+        }, 200);
+
+        return () => {
+            clearTimeout(timer);
+        }
+    }, [searchedText]);
+
     const dispatch = useDispatch();
 
-    const handleSearchBar = async (e) => {
-        setSearchedText(e.target.value);
-        setSelected(false);
+    const insertNewSearchOptions = async () => {
+        //console.log(`Performing an API call for ${searchedText}`);
         try {
             if (searchedText === undefined || searchedText.length === 0) {
                 return;
@@ -42,6 +51,11 @@ const Head = () => {
         } catch (e) {
             console.error(e);
         }
+    }
+
+    const handleSearchBar = (e) => {
+        setSearchedText(e.target.value);
+        setSelected(false);
     }
 
     return (
