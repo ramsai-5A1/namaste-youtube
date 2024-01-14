@@ -167,7 +167,29 @@ export const Comments_Data = [
                                     "id": 71,
                                     "username": "Kumar.k"
                                 },
-                                "replies": []
+                                "replies": [
+                                    {
+                                        "id": 3,
+                                        "body": "Hola, Its getting deeper!",
+                                        "postId": 27,
+                                        "user": {
+                                            "id": 71,
+                                            "username": "Kumar.k"
+                                        },
+                                        "replies": [
+                                            {
+                                                "id": 3,
+                                                "body": "yes, its damn good!",
+                                                "postId": 27,
+                                                "user": {
+                                                    "id": 71,
+                                                    "username": "Kumar.k"
+                                                },
+                                                "replies": []
+                                            },
+                                        ]
+                                    },
+                                ]
                             },
                         ]
                     },
