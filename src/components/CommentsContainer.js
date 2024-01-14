@@ -26,9 +26,7 @@ const CommentsContainer = () => {
     return (
         <div className="m-2 p-2">
             <h1 className="font-bold">Comments</h1>
-            <SingleComment info={Comments_Data[0]} topLevel={true}/>
             {Comments_Data != undefined && Comments_Data.length > 0 && Comments_Data.map((comment) => <SingleComment info={comment}/>)}
-            {/* {comments.map((comment) => <SingleComment key={comment.user.username} info={comment}/>)} */}
         </div>
     )
 };
@@ -39,7 +37,7 @@ const SingleComment = ({info}) => {
     const [repliesOpened, setRepliesOpened] = useState(false);
 
     return (
-        <div className="">
+        <div className="p-1">
             <div className="bg-gray-100 p-2 rounded-lg">
                 <div className="flex p-2">
                     <div className="py-3">
@@ -80,7 +78,7 @@ const SingleComment = ({info}) => {
                     </span>
                 </div>}
 
-                <div className="flex flex-col px-10">
+                <div className="flex flex-col px-10 border border-l-black p-1 ml-5">
                     {repliesOpened && replies !== undefined && replies.length > 0 && replies.map((value) => <SingleComment info={value}/>)}
                 </div>
             </div>
