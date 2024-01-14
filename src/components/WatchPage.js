@@ -48,7 +48,7 @@ const LiveChatCard = () => {
                 message: generateRandomMessage(),
                 name: generateRandomName()
             }));
-        }, 1000);
+        }, 2000);
         
         return () => {
             clearInterval(timer);

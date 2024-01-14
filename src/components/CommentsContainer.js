@@ -4,19 +4,24 @@ import { GoThumbsup } from "react-icons/go";
 import { GoThumbsdown } from "react-icons/go";
 import { Comments_Data } from "../utils/Mocks/Comments_Data";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { addNewCommentObject, addToChildOfId } from "../utils/CommentsSlice";
+import { incrementeValue } from "../utils/GenerateId";
 
 
 const CommentsContainer = () => {
 
-    const [comments, setComments] = useState([]);
+    const dispatch = useDispatch();
+    const comments = useSelector((store) => store.comments.comments);
 
     useEffect(() => {
-        const fetchCommentsFromApi = async () => {
-            const rawData = await fetch(DUMMY_COMMENTS_API);
-            const data = await rawData.json();
-            setComments(data.comments);
-        }
-        fetchCommentsFromApi();
+        // const fetchCommentsFromApi = async () => {
+        //     const rawData = await fetch(DUMMY_COMMENTS_API);
+        //     const data = await rawData.json();
+        //     setComments(data.comments);
+        // }
+        // fetchCommentsFromApi();
+        Comments_Data.forEach((obj) => dispatch(addNewCommentObject(obj)));
     }, []);
 
     if (comments === undefined || comments.length === 0) {
@@ -26,14 +31,17 @@ const CommentsContainer = () => {
     return (
         <div className="m-2 p-2">
             <h1 className="font-bold">Comments</h1>
-            {Comments_Data != undefined && Comments_Data.length > 0 && Comments_Data.map((comment) => <SingleComment key={comment.id} info={comment}/>)}
+            { comments.map((comment) => <SingleComment key={comment.id} info={comment}/>)}
         </div>
     )
 };
 
 const SingleComment = ({info}) => {
     const { user, body, replies} = info;
-
+    const value = useSelector((store) => store.generateId.value);
+    const dispatch = useDispatch();
+    
+    const [commentedNewReply, setCommentedNewReply] = useState(false);
     const [repliesOpened, setRepliesOpened] = useState(false);
 
     return (
@@ -64,12 +72,13 @@ const SingleComment = ({info}) => {
                                 <GoThumbsdown/>
                             </div>
 
-                            <div className="">
-                                <span className="font-bold text-sm">Reply</span>
+                            <div className="hover:cursor-pointer hover:bg-gray-400 p-1" onClick={() => setCommentedNewReply(!commentedNewReply)}>
+                                <span className="font-bold text-sm">Replyy</span>
                             </div>
                         </div>
                     </div>
                 </div>
+                {commentedNewReply && <NewCommentReply dispatch={dispatch} value={value} id={info.id}/>}
 
                 {replies !== undefined && replies.length > 0 && <div className="flex">
                     <span className="text-blue-600 pl-14 ">{repliesOpened ? <FaCaretUp/> : <FaCaretDown/>}</span>
@@ -82,6 +91,42 @@ const SingleComment = ({info}) => {
                     {repliesOpened && replies !== undefined && replies.length > 0 && replies.map((value) => <SingleComment key={value.id} info={value}/>)}
                 </div>
             </div>
+        </div>
+    )
+}
+
+const NewCommentReply = ({dispatch, value, id}) => {
+
+    const [text, setText] = useState("");
+
+    const handleKeyStroke = (event) => {
+        if (event.key === "Enter") {
+            dispatch(incrementeValue());
+            dispatch(addToChildOfId({
+                parentId: id, 
+                parentComment: {
+                    id: value,
+                    body: text,
+                    postId: 100,
+                    user: {
+                        username: "Ram",
+                        id: 101
+                    },
+                    replies: []}
+                }));
+            setText("");
+        } 
+    }
+
+    return (
+        <div className="pl-[150px]">
+            <input
+                className="w-[500px] h-10 p-1 m-2 border"
+                type="text"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                onKeyDown={handleKeyStroke}
+            />
         </div>
     )
 }
