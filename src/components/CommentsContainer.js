@@ -26,7 +26,7 @@ const CommentsContainer = () => {
     return (
         <div className="m-2 p-2">
             <h1 className="font-bold">Comments</h1>
-            {Comments_Data != undefined && Comments_Data.length > 0 && Comments_Data.map((comment) => <SingleComment info={comment}/>)}
+            {Comments_Data != undefined && Comments_Data.length > 0 && Comments_Data.map((comment) => <SingleComment key={comment.id} info={comment}/>)}
         </div>
     )
 };
@@ -79,7 +79,7 @@ const SingleComment = ({info}) => {
                 </div>}
 
                 <div className="flex flex-col px-10 border border-l-black p-1 ml-5">
-                    {repliesOpened && replies !== undefined && replies.length > 0 && replies.map((value) => <SingleComment info={value}/>)}
+                    {repliesOpened && replies !== undefined && replies.length > 0 && replies.map((value) => <SingleComment key={value.id} info={value}/>)}
                 </div>
             </div>
         </div>

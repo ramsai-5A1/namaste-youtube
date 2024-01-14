@@ -4,6 +4,9 @@ import { closeMenu } from "../utils/HeaderSlice";
 import ShimmerWatchPage from "./ShimmerWatchPage";
 import { Link } from "react-router-dom";
 import CommentsContainer from "./CommentsContainer";
+import { Live_Chat_Data } from "../utils/Mocks/Live_Chat_Data";
+import { addDataToSlice, removeExcessDataFromSlice } from "../utils/LiveChatSlice";
+import { generateRandomMessage, generateRandomName } from "../utils/helper";
 
 const WatchPage = () => {
     const info = useSelector((store) => store.video.info);
@@ -21,7 +24,9 @@ const WatchPage = () => {
     return (
         <div className="flex">
             <BigVideoCard key={info.id} info={info}/>
+            
             <div className="flex flex-col">
+                <LiveChatCard/>
                 {allVideos.map((video) => (
                     <RightSideVideoCard key={video.id + 100} video={video}/>
                 ))}
@@ -30,6 +35,57 @@ const WatchPage = () => {
         </div>
     )
 };
+
+const LiveChatCard = () => {
+    const dispatch = useDispatch();
+    const messages = useSelector((store) => store.liveChat.messages);
+    useEffect(() => {
+        const timer = setInterval(() => {
+            console.log("Polling from server");
+            dispatch(addDataToSlice({
+                id: 1,
+                message: generateRandomMessage(),
+                name: generateRandomName()
+            }));
+        }, 2000);
+        
+        return () => {
+            clearInterval(timer);
+        }
+    }, []);
+
+    return (
+        <div className="py-4">
+            <div className="w-96 max-h-[500px]  overflow-y-scroll bg-gray-300 shadow-lg rounded-lg">
+                {/* <div className="fixed w-96 z-10 bg-gray-300">
+                    <span className="font-bold p-2">Live Chat</span>
+                </div> */}
+                <div className="py-4">
+                    {messages.map((info, index) => <SingleMessage key={index} info={info}/>)}
+                </div>
+            </div>
+        </div>
+    )
+}
+
+const SingleMessage = ({info}) => {
+    return (
+        <div>
+            <div className="flex p-2 shadow-sm">
+                <div className="p-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-200">
+                        <img alt="user-profile" className="w-8 h-8 rounded-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbkWrK6FhDuNa-QZwqJe71dE7xYVGV1ZVEb9usTCA5NRT8FlyheMHseMYYnXKLsKQoiBw&usqp=CAU"/>
+                    </div>
+                </div>
+
+                <div>
+                    <span className="p-1 font-bold">{info.name}</span>
+                    <span>{info.message}</span>
+                </div>
+            </div>
+        </div>
+    )
+}
 
 const RightSideVideoCard = ({video}) => {
     const {videoUrl, duration, views, uploadTime, thumbnailUrl, subscriber, title, description, author, id} = video;
