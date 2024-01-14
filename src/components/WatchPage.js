@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeMenu } from "../utils/HeaderSlice";
 import ShimmerWatchPage from "./ShimmerWatchPage";
 import { Link } from "react-router-dom";
+import CommentsContainer from "./CommentsContainer";
 
 const WatchPage = () => {
     const info = useSelector((store) => store.video.info);
@@ -60,6 +61,8 @@ const BigVideoCard = ({info}) => {
             <div className="w-[1000px] h-[500px] bg-gray-300 hover:cursor-pointer rounded-lg">
             <iframe width="1000" height="500" className="rounded-xl " src={videoUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
             </div>
+
+            <CommentsContainer/>
         </div>
     )
 }

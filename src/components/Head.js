@@ -33,7 +33,6 @@ const Head = () => {
             }
             if (searchedText in reddis) {
                 setSearchOptions(reddis[searchedText]);
-                console.log("Retrived from cache");
                 return;
             }
 
@@ -55,7 +54,6 @@ const Head = () => {
                 
             }
             setSearchOptions(arr);
-            console.log("Retrived from API");
             dispatch(addItemToCache([searchedText, arr]));
         } catch (e) {
             console.error(e);
