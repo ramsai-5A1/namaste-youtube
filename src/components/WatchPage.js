@@ -40,18 +40,18 @@ const LiveChatCard = () => {
     const dispatch = useDispatch();
     const messages = useSelector((store) => store.liveChat.messages);
     useEffect(() => {
-        const timer = setInterval(() => {
-            console.log("Polling from server");
-            dispatch(addDataToSlice({
-                id: 1,
-                message: generateRandomMessage(),
-                name: generateRandomName()
-            }));
-        }, 2000);
+        // const timer = setInterval(() => {
+        //     console.log("Polling from server");
+        //     dispatch(addDataToSlice({
+        //         id: 1,
+        //         message: generateRandomMessage(),
+        //         name: generateRandomName()
+        //     }));
+        // }, 500);
         
-        return () => {
-            clearInterval(timer);
-        }
+        // return () => {
+        //     clearInterval(timer);
+        // }
     }, []);
 
     return (
