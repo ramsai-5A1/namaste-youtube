@@ -37,11 +37,9 @@ var messagesList = [
     "I am a React developer sir, teach me Javascript"
 ]
 export function generateRandomName() {
-    var finalName = nameList[Math.floor(Math.random() * nameList.length)];
-    return finalName;
+    return nameList[Math.floor(Math.random() * nameList.length)];
 };
 
 export function generateRandomMessage() {
-    var finalMessage = messagesList[Math.floor(Math.random() * messagesList.length)];
-    return finalMessage;
+    return messagesList[Math.floor(Math.random() * messagesList.length)];
 };

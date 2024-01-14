@@ -7,7 +7,7 @@ const LiveChatSlice = createSlice({
     },
     reducers: {
         addDataToSlice: (state, action) => {
-            state.messages.push(action.payload);
+            state.messages.unshift(action.payload);
         },
         removeExcessDataFromSlice: (state) => {
             if (state.messages.length > 5) {

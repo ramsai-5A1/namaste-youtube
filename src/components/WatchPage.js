@@ -56,11 +56,8 @@ const LiveChatCard = () => {
 
     return (
         <div className="py-4">
-            <div className="w-96 max-h-[500px]  overflow-y-scroll bg-gray-300 shadow-lg rounded-lg">
-                {/* <div className="fixed w-96 z-10 bg-gray-300">
-                    <span className="font-bold p-2">Live Chat</span>
-                </div> */}
-                <div className="py-4">
+            <div className="w-96 h-[500px] overflow-y-scroll bg-gray-300 shadow-lg rounded-lg">
+                <div className="py-4  flex flex-col-reverse">
                     {messages.map((info, index) => <SingleMessage key={index} info={info}/>)}
                 </div>
             </div>
