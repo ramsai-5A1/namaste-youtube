@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeMenu } from "../utils/HeaderSlice";
 import ShimmerWatchPage from "./ShimmerWatchPage";
@@ -37,28 +37,52 @@ const WatchPage = () => {
 };
 
 const LiveChatCard = () => {
+    const [chatValue, setChatValue] = useState("");
     const dispatch = useDispatch();
     const messages = useSelector((store) => store.liveChat.messages);
     useEffect(() => {
-        // const timer = setInterval(() => {
-        //     console.log("Polling from server");
-        //     dispatch(addDataToSlice({
-        //         id: 1,
-        //         message: generateRandomMessage(),
-        //         name: generateRandomName()
-        //     }));
-        // }, 500);
+        const timer = setInterval(() => {
+            console.log("Polling from server");
+            dispatch(addDataToSlice({
+                id: 1,
+                message: generateRandomMessage(),
+                name: generateRandomName()
+            }));
+        }, 1000);
         
-        // return () => {
-        //     clearInterval(timer);
-        // }
+        return () => {
+            clearInterval(timer);
+        }
     }, []);
+
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            dispatch(addDataToSlice({
+                name: "Ram",
+                message: chatValue
+            }));
+            setChatValue("");
+        }
+    }
 
     return (
         <div className="py-4">
-            <div className="w-96 h-[500px] overflow-y-scroll bg-gray-300 shadow-lg rounded-lg">
-                <div className="py-4  flex flex-col-reverse">
+            <div className="w-96 h-[500px] bg-gray-300 shadow-lg rounded-lg">
+                <div className="h-[30px] px-3 py-1">
+                <span className="font-bold p-1">Live Chat</span>
+                </div>
+                <div className="py-4 h-[420px]  overflow-y-scroll  flex flex-col-reverse">
                     {messages.map((info, index) => <SingleMessage key={index} info={info}/>)}
+                </div>
+                <div className=" flex justify-center p-2">
+                    <input
+                        className="w-80 h-8 rounded-full p-2"
+                        type="text"
+                        placeholder="Chat..."
+                        value={chatValue}
+                        onChange={(e) => setChatValue(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                    />
                 </div>
             </div>
         </div>

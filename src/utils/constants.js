@@ -5,5 +5,5 @@ export const GOOGLE_YOUTUBE_API = "https://youtube.googleapis.com/youtube/v3/vid
 export const BACKEND_DATA_API = "http://localhost:3001/getYoutubeData";
 export const GOOGLE_SEARCH_API = "https://clients1.google.com/complete/search?hl=en&output=toolbar&q=";
 export const DUMMY_COMMENTS_API = "https://dummyjson.com/comments";
-
+export const OFFSET_LIVE_CHAT = 20;
 
